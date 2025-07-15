@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+.animo {
+  border: 4px solid red;
+  animation: borderColorAndShadowChange 5s infinite alternate;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgb(255, 255, 255);
+}
+
+@keyframes borderColorAndShadowChange {
+  0% {
+    border-color:crimson;
+    box-shadow: 0 0 10px crimson;
+  }
+  50% {
+    border-color: turquoise;
+    box-shadow: 0 0 10px turquoise;
+  }
+  100% {
+    border-color: green;
+    box-shadow: 0 0 10px green;
+  }
+}
