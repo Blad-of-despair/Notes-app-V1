@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "NotesVita-V1",
-  description: "A simple notes app built with Next.js and MongoDB",
+  description: "A simple notes app.",
 };
 
 export default function RootLayout({ children }) {

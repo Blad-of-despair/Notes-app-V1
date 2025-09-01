@@ -1,6 +1,7 @@
 # Notes App
 
 A full-stack notes application built with Next.js, MongoDB, and Tailwind CSS. This app allows users to securely register, log in, and manage their personal notes.
+Website link : https://notesvita-v1.netlify.app/
 
 ## Features
 
