@@ -50,48 +50,43 @@ export default function NewNotePage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 p-8">
-      <div className="max-w-md w-full bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl p-8 border border-white border-opacity-20 text-black">
-        <h1 className="text-3xl font-extrabold mb-6 text-center">Create New Note</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#eaf3ff] via-[#f7faff] to-[#eaf3ff] p-4">
+      <div className="bg-white/80 rounded-2xl shadow-xl max-w-xl w-full p-10 border border-[#e0e7ff]/60 backdrop-blur-lg">
+        <h1 className="text-4xl font-heading font-bold text-[#22223b] mb-6 text-center">
+          Create New Note
+        </h1>
         {error && (
-          <p className="bg-red-500 bg-opacity-70 p-3 rounded-md mb-4 text-center text-white text-sm">{error}</p>
+          <p className="bg-[#ffe4e6] border border-[#fecdd3] text-[#ef4444] px-4 py-3 rounded-lg mb-4 text-center text-sm">{error}</p>
         )}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Note Title"
-            className="w-full p-3 rounded-lg bg-white bg-opacity-20 border border-black border-opacity-30 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-          <textarea
-            placeholder="Note Content"
-            className="w-full p-3 rounded-lg bg-white bg-opacity-20 border border-black border-opacity-30 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200"
-            rows={8}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="form-group">
+            <label className="form-label text-[#5c6b7c]">Title</label>
+            <input
+              type="text"
+              placeholder="Note Title"
+              className="form-input py-3 px-4 rounded-lg border border-[#e0e7ff] bg-white text-[#2b59ff] focus:ring-2 focus:ring-[#b17cff]"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label text-[#5c6b7c]">Content</label>
+            <textarea
+              placeholder="Write your note here..."
+              className="form-input py-3 px-4 rounded-lg border border-[#e0e7ff] bg-white text-[#22223b] focus:ring-2 focus:ring-[#b17cff] min-h-[120px] resize-vertical"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+            />
+          </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
+            className="w-full text-lg font-semibold py-3 rounded-lg bg-gradient-to-r from-[#2b59ff] to-[#b17cff] text-white shadow-md hover:scale-105 transition-transform"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
             Create Note
           </button>
         </form>
-        <button
-          onClick={() => router.push("/notes")}
-          className="mt-4 w-full bg-gray-300 text-gray-800 p-3 rounded-full text-lg font-semibold hover:bg-gray-400 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center justify-center gap-2"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-          </svg>
-          Cancel
-        </button>
       </div>
     </div>
   );

@@ -64,18 +64,37 @@ export default function ViewNotePage() {
     }
   }
 
+  const [deleting, setDeleting] = useState(false);
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
+      <div className="min-h-screen bg-surface flex items-center justify-center">
+        <div className="animate-pulse">
+          <div className="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+          <p className="text-text-secondary mt-4 font-medium">Loading note...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-red-500">{error}</p>
+      <div className="min-h-screen bg-surface flex items-center justify-center">
+        <div className="glass-card p-8 text-center border border-red-500/20">
+          <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-heading text-text-primary mb-2">Note Not Found</h2>
+          <p className="text-text-secondary mb-4">{error}</p>
+          <button
+              onClick={() => router.push('/notes')}
+              className="btn-primary"
+            >
+              Back to Notes
+            </button>
+        </div>
       </div>
     );
   }
@@ -83,37 +102,76 @@ export default function ViewNotePage() {
   if (!note) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-8 flex justify-center items-center">
-      <div className="max-w-3xl w-full bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl p-8 border border-white border-opacity-20 text-white">
-        <h1 className="text-4xl font-extrabold mb-4 break-words text-gray-800">{note.title}</h1>
-        <p className="text-gray-700 mb-8 whitespace-pre-wrap leading-relaxed text-lg">{note.content}</p>
-        <div className="flex flex-wrap gap-4">
+    <div className="min-h-screen bg-[#f6faff] flex items-center justify-center">
+      <div className="w-full max-w-3xl mx-auto p-8 md:p-12 bg-white rounded-3xl shadow-xl border border-gray-100">
+        <button
+          onClick={() => router.back()}
+          className="mb-6 text-blue-500 hover:text-blue-700 font-medium flex items-center gap-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          Back
+        </button>
+        <header className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+            {note.title}
+          </h1>
+          <div className="flex items-center flex-wrap gap-x-6 gap-y-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Created: {new Date(note.createdAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            {note.createdAt !== note.updatedAt && (
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                <span>Updated: {new Date(note.updatedAt).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </div>
+            )}
+          </div>
+        </header>
+        <div className="prose prose-lg max-w-none font-body mb-8">
+          <div className="text-gray-800 whitespace-pre-wrap leading-relaxed">
+            {note.content}
+          </div>
+        </div>
+        <footer className="pt-6 border-t border-gray-100 text-center">
+          <p className="text-sm text-gray-400">
+            This note is saved securely in your workspace
+          </p>
+        </footer>
+        <div className="mt-8 flex justify-end gap-3">
           <button
             onClick={() => router.push(`/notes/${id}/edit`)}
-            className="bg-green-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center gap-2"
+            className="px-5 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-semibold shadow-sm transition-colors"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.38-2.828-2.829z" />
-            </svg>
-            Edit
+            ✏️ Edit
           </button>
           <button
             onClick={handleDelete}
-            className="bg-red-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center gap-2"
+            className="px-5 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold shadow-sm transition-colors"
+            disabled={deleting}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zm6 2a1 1 0 100 2H8a1 1 0 100-2h5z" clipRule="evenodd" />
-            </svg>
-            Delete
+            {deleting ? 'Deleting...' : '🗑️ Delete'}
           </button>
+        </div>
+        <div className="mt-8 flex justify-center gap-4">
           <button
-            onClick={() => router.push("/notes")}
-            className="bg-gray-300 text-gray-800 px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-400 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center gap-2"
+            onClick={() => router.push(`/notes/${id}`)}
+            className="text-blue-500 hover:text-blue-700 transition-colors text-sm font-semibold"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
-            </svg>
-            Back to Notes
+            🔄 Refresh
+          </button>
+          <span className="text-gray-300">•</span>
+          <button
+            onClick={() => router.push('/notes')}
+            className="text-gray-500 hover:text-gray-900 transition-colors text-sm font-semibold"
+          >
+            📖 All Notes
           </button>
         </div>
       </div>

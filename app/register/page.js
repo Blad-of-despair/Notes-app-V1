@@ -42,38 +42,56 @@ useEffect(() => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 p-4">
-      <div className="max-w-md w-full bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl p-8 border border-white border-opacity-20 text-black">
-        <h1 className="text-3xl font-bold mb-6 text-black text-center">Create Your Account</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#eaf3ff] via-[#f7faff] to-[#eaf3ff] p-4">
+      <div className="bg-white/80 rounded-2xl shadow-xl max-w-md w-full p-10 border border-[#e0e7ff]/60 backdrop-blur-lg">
+        <h1 className="text-4xl font-heading font-bold text-[#22223b] mb-6 text-center">
+          Create Account
+        </h1>
+        <p className="text-[#5c6b7c] text-center mb-8">
+          Register to start taking notes
+        </p>
         {error && (
-          <p className="bg-red-500 bg-opacity-70 p-3 rounded-md mb-4 text-center text-black text-sm">{error}</p>
+          <p className="bg-[#ffe4e6] border border-[#fecdd3] text-[#ef4444] px-4 py-3 rounded-lg mb-4 text-center text-sm">{error}</p>
         )}
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <input
-            type="email"
-            placeholder="Email Address"
-            className="w-full p-3 rounded-md bg-white bg-opacity-20 border border-black border-opacity-30 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 "
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-           className="w-full p-3 rounded-md bg-white bg-opacity-20 border border-black border-opacity-30 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 "
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          
+          <div className="form-group">
+            <label className="form-label text-[#5c6b7c]">Email</label>
+            <input
+              type="email"
+              placeholder="name@example.com"
+              className="form-input py-3 px-4 rounded-lg border border-[#e0e7ff] bg-white text-[#2b59ff] focus:ring-2 focus:ring-[#b17cff]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label text-[#5c6b7c]">Password</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              className="form-input py-3 px-4 rounded-lg border border-[#e0e7ff] bg-white text-[#2b59ff] focus:ring-2 focus:ring-[#b17cff]"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
           <button
             type="submit"
-            className="w-full bg-white text-purple-600 p-3 rounded-md text-lg font-semibold hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+            className="w-full text-lg font-semibold py-3 rounded-lg bg-gradient-to-r from-[#2b59ff] to-[#b17cff] text-white shadow-md hover:scale-105 transition-transform"
           >
             Register
           </button>
         </form>
-        <p className="mt-6 text-center text-sm opacity-90">
-          Already have an account? <a href="/login" className="text-black font-semibold hover:underline">Login Here</a>
+        <p className="text-center text-sm text-[#5c6b7c] mt-6">
+          Already have an account?{' '}
+          <a 
+            href="/login" 
+            className="text-[#7c3aed] font-medium hover:text-[#a78bfa] transition-colors"
+          >
+            Sign in
+          </a>
         </p>
       </div>
     </div>
